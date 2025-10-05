@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="تعلم تصميم الألعاب من الصفر باستخدام لغات البرمجة المختلفة وأمثلة عملية بلعبة الثعبان مع موقع برمجها Barmegha.">
+  <meta name="keywords" content="برمجة الألعاب, تصميم الألعاب, تعلم الألعاب, snake game, unity, unreal, barmegha, elmnsye">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تعلم برمجة وتصميم الألعاب من الصفر | برمجها</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+  <header class="main-header">
+    <h1>🎮 تعلم برمجة وتصميم الألعاب من الصفر</h1>
+    <p>ابدأ رحلتك لصناعة ألعابك الخاصة مع برمجها | Barmegha</p>
+  </header>
+
+  <section class="content-section">
+
+    <h2>ما هو تطوير الألعاب؟</h2>
+    <p>
+      تطوير الألعاب (Game Development) هو عملية تصميم وبناء الألعاب التفاعلية على الكمبيوتر أو الهاتف.  
+      يجمع بين <strong>البرمجة + التصميم + الذكاء الاصطناعي + الصوتيات + الرسومات</strong>.
+    </p>
+
+    <h2>مراحل بناء أي لعبة</h2>
+    <ol>
+      <li><strong>الفكرة:</strong> تحديد نوع اللعبة (أكشن، مغامرات، ذكاء...)</li>
+      <li><strong>الرسم والتصميم:</strong> تصميم الشخصيات والبيئة.</li>
+      <li><strong>البرمجة:</strong> كتابة الكود الذي يتحكم في الحركة والتفاعل.</li>
+      <li><strong>الاختبار:</strong> تجربة اللعبة وحل الأخطاء.</li>
+      <li><strong>النشر:</strong> رفعها على المتاجر مثل Google Play أو Steam.</li>
+    </ol>
+
+    <h2>أشهر محركات الألعاب</h2>
+    <ul>
+      <li><strong>Unity:</strong> يستخدم لغة C#، ممتاز لتطبيقات الهاتف والألعاب ثلاثية الأبعاد.</li>
+      <li><strong>Unreal Engine:</strong> يستخدم C++ وBlueprint، مناسب للألعاب الضخمة.</li>
+      <li><strong>Godot:</strong> مجاني ومفتوح المصدر، سهل للمبتدئين.</li>
+    </ul>
+
+    <h2>لغات البرمجة المستخدمة في الألعاب</h2>
+    <ul>
+      <li>C++ — للألعاب الاحترافية.</li>
+      <li>C# — مع محرك Unity.</li>
+      <li>JavaScript — لألعاب الويب.</li>
+      <li>Python — للتجارب التعليمية البسيطة.</li>
+    </ul>
+
+    <h2>أهم المفاهيم في برمجة الألعاب</h2>
+    <ul>
+      <li><strong>Loop اللعبة:</strong> الكود الذي يكرر تحديث اللعبة كل إطار.</li>
+      <li><strong>الكائنات (Objects):</strong> مثل اللاعب، العدو، الطعام.</li>
+      <li><strong>الفيزياء (Physics):</strong> الحركة والتصادمات.</li>
+      <li><strong>الذكاء الصناعي:</strong> سلوك الأعداء أو الشخصيات.</li>
+    </ul>
+
+    <h2>مثال عملي — لعبة الثعبان (Snake Game)</h2>
+    <p>
+      هنا مثال بسيط بلغة <strong>JavaScript + HTML Canvas</strong> لتوضيح المفهوم.
+    </p>
+
+    <div class="game-container">
+      <canvas id="game" width="400" height="400" style="border:2px solid #000; background:#fdfdfd;"></canvas>
+    </div>
+
+    <script>
+      const canvas = document.getElementById("game");
+      const ctx = canvas.getContext("2d");
+
+      let box = 20;
+      let snake = [];
+      snake[0] = { x: 9 * box, y: 10 * box };
+
+      let food = {
+        x: Math.floor(Math.random() * 19 + 1) * box,
+        y: Math.floor(Math.random() * 19 + 1) * box
+      };
+
+      let score = 0;
+      let d;
+
+      document.addEventListener("keydown", direction);
+
+      function direction(event) {
+        if (event.keyCode == 37 && d != "RIGHT") d = "LEFT";
+        else if (event.keyCode == 38 && d != "DOWN") d = "UP";
+        else if (event.keyCode == 39 && d != "LEFT") d = "RIGHT";
+        else if (event.keyCode == 40 && d != "UP") d = "DOWN";
+      }
+
+      function draw() {
+        ctx.fillStyle = "#fff";
+        ctx.fillRect(0, 0, 400, 400);
+
+        for (let i = 0; i < snake.length; i++) {
+          ctx.fillStyle = i == 0 ? "#e11d48" : "#f87171";
+          ctx.fillRect(snake[i].x, snake[i].y, box, box);
+        }
+
+        ctx.fillStyle = "#22c55e";
+        ctx.fillRect(food.x, food.y, box, box);
+
+        let snakeX = snake[0].x;
+        let snakeY = snake[0].y;
+
+        if (d == "LEFT") snakeX -= box;
+        if (d == "UP") snakeY -= box;
+        if (d == "RIGHT") snakeX += box;
+        if (d == "DOWN") snakeY += box;
+
+        if (snakeX == food.x && snakeY == food.y) {
+          score++;
+          food = {
+            x: Math.floor(Math.random() * 19 + 1) * box,
+            y: Math.floor(Math.random() * 19 + 1) * box
+          };
+        } else {
+          snake.pop();
+        }
+
+        let newHead = { x: snakeX, y: snakeY };
+
+        if (
+          snakeX < 0 || snakeX >= 400 ||
+          snakeY < 0 || snakeY >= 400 ||
+          collision(newHead, snake)
+        ) {
+          clearInterval(game);
+          alert("انتهت اللعبة! مجموع نقاطك: " + score);
+        }
+
+        snake.unshift(newHead);
+
+        ctx.fillStyle = "#000";
+        ctx.font = "20px Arial";
+        ctx.fillText("النتيجة: " + score, 10, 390);
+      }
+
+      function collision(head, array) {
+        for (let i = 0; i < array.length; i++) {
+          if (head.x == array[i].x && head.y == array[i].y) return true;
+        }
+        return false;
+      }
+
+      let game = setInterval(draw, 100);
+    </script>
+
+    <h2>كيف تطور ألعابًا أكثر احترافية؟</h2>
+    <ul>
+      <li>تعلم محرك <strong>Unity</strong> بلغة C#.</li>
+      <li>استخدم <strong>Unreal Engine</strong> إن كنت تهتم بالجرافيك العالي.</li>
+      <li>ابدأ بمشاريع صغيرة، ثم طور لعبتك خطوة بخطوة.</li>
+      <li>تعلم عن <strong>Collision Detection</strong> و<strong>Game Physics</strong>.</li>
+    </ul>
+
+    <h2>أفكار لألعاب يمكنك تنفيذها بعد لعبة الثعبان</h2>
+    <ul>
+      <li>لعبة “Flappy Bird” بلغة JavaScript.</li>
+      <li>لعبة “Tic Tac Toe” بلغة Python.</li>
+      <li>لعبة سيارات بسيطة بلغة C# باستخدام Unity.</li>
+    </ul>
+
+    <h2>الخلاصة</h2>
+    <p>
+      برمجة الألعاب ليست فقط كتابة أكواد — إنها <strong>فن الإبداع</strong>.  
+      كل لعبة تصنعها هي عالم جديد من أفكارك.  
+      ومع <strong>برمجها Barmegha</strong>، هتتعلم تبني ألعابك بنفسك خطوة بخطوة حتى الاحتراف.
+    </p>
+
+  </section>
+
+  <footer>
+    <p>© 2025 جميع الحقوق محفوظة | برمجها Barmegha</p>
+  </footer>
+</body>
+</html>
